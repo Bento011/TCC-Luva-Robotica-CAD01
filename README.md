@@ -3,4 +3,9 @@ Arquivos de desenvolvimento do Trabalho de Conclusão de Curso do Instituto Mau�
 
 Neste repositório encontram-se os arquivos utilizados durante o desenvolvimento do projeto de uma luva robótica controlada por Interface cérebro máquina para reabilitação motora de vítimas de AVC.
 
-Os aaqruivos nomeados com Dev_ foram utilizados para o desenvlvimento. O arquivo noeado com Final_ foi o programa final implementado no protótipo.
+São dois tipos de aqruivos: 
+- Programação: Arquivos em C, implementados durante o dessenvlvimento do progrrama no Arduino
+- Modelagem 3D: Arquivos do SolidWorks utilizados ao longo do dessenvolvimento do projeto
+- Monografia: Relatório final do projeto
+
+Os aqruivos nomeados com Dev_ foram utilizados para o desenvlvimento. O arquivo noeado com Final_ foi o programa final implementado no protótipo.
