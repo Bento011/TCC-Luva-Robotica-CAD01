@@ -1,0 +1,124 @@
+# encoding: utf-8
+# 2023 R1
+SetScriptVersion(Version="23.1.153")
+template1 = GetTemplate(
+    TemplateName="Transient Structural",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+system1.DisplayText = "6"
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.SetFile(FilePath="C:/Users/Rafael/Desktop/manos/1. o final/CAE/montagem 2 pq sim/montagemcae stepe.STEP")
+favorites1 = EngData.LoadFavoriteItems()
+library1 = EngData.OpenLibrary(
+    Name="Composite Materials",
+    Source="Composite_Materials.xml")
+library2 = EngData.OpenLibrary(
+    Name="Additive Manufacturing Materials",
+    Source="Additive_Manufacturing_Materials.xml")
+library3 = EngData.OpenLibrary(
+    Name="General Materials",
+    Source="General_Materials.xml")
+EngData.EnableFilter(Enable=False)
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+material1 = engineeringData1.GetMaterial(Name="Structural Steel")
+material1.DisplayName = "Polyethylene"
+matl1 = engineeringData1.CreateMaterial(Name="Polyethylene")
+matl1 = engineeringData1.CreateMaterial(Name="Polyethylene")
+matl1 = engineeringData1.CreateMaterial(Name="Polyethylene")
+matl1 = material1.Duplicate(TargetContainer=engineeringData1)
+matl1.DisplayName = "PLA do projeto"
+matl1.SetSuppression(Suppressed=True)
+matl1.SetSuppression(Suppressed=False)
+matlProp1 = matl1.GetProperty(Name="Density")
+matlProp1.SetVariableProperty(
+    VariableName="Density",
+    Property="Unit",
+    Value="g cm^-3")
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["7.8500000000000005 [g cm^-3]"]])
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["1 [g cm^-3]"]])
+matlProp2 = matl1.GetProperty(Name="Elasticity")
+matlProp2.SetVariableProperty(
+    VariableName="Young's Modulus",
+    Property="Unit",
+    Value="GPa")
+matlProp2.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["200 [GPa]"]])
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["3.41 [g cm^-3]"]])
+matlProp2.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["13.8 [GPa]"]])
+matlProp3 = matl1.GetProperty(Name="Tensile Yield Strength")
+matlProp3.SetVariableProperty(
+    VariableName="Tensile Yield Strength",
+    Property="Unit",
+    Value="MPa")
+matlProp3.SetData(
+    Variables=["Tensile Yield Strength"],
+    Values=[["250 [MPa]"]])
+matlProp3.SetData(
+    Variables=["Tensile Yield Strength"],
+    Values=[["103 [MPa]"]])
+matlProp1.SetData(
+    Variables=["Density"],
+    Values=[["1.25 [g cm^-3]"]])
+matlProp2.SetData(
+    Variables=["Young's Modulus"],
+    Values=[["2.9 [GPa]"]])
+matlProp3.SetData(
+    Variables=["Tensile Yield Strength"],
+    Values=[["21.8 [MPa]"]])
+matlProp4 = matl1.GetProperty(Name="Tensile Ultimate Strength")
+matlProp4.SetVariableProperty(
+    VariableName="Tensile Ultimate Strength",
+    Property="Unit",
+    Value="MPa")
+matlProp4.SetData(
+    Variables=["Tensile Ultimate Strength"],
+    Values=[["460 [MPa]"]])
+matlProp4.SetData(
+    Variables=["Tensile Ultimate Strength"],
+    Values=[["48 [MPa]"]])
+matlProp5 = matl1.GetProperty(Name="Compressive Yield Strength")
+matlProp5.SetVariableProperty(
+    VariableName="Compressive Yield Strength",
+    Property="Unit",
+    Value="MPa")
+matlProp5.SetData(
+    Variables=["Compressive Yield Strength"],
+    Values=[["250 [MPa]"]])
+matlProp5.SetData(
+    Variables=["Compressive Yield Strength"],
+    Values=[["21.8 [MPa]"]])
+template2 = GetTemplate(TemplateName="Rigid Dynamics")
+system2 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system1)
+engineeringDataComponent1 = system2.GetComponent(Name="Engineering Data")
+engineeringDataComponent2 = system1.GetComponent(Name="Engineering Data")
+engineeringDataComponent1.ReplaceWithShare(
+    TargetSystem=system2,
+    ComponentToShare=engineeringDataComponent2,
+    SourceSystem=system1)
+geometryComponent1 = system2.GetComponent(Name="Geometry")
+geometryComponent2 = system1.GetComponent(Name="Geometry")
+geometryComponent1.ReplaceWithShare(
+    TargetSystem=system2,
+    ComponentToShare=geometryComponent2,
+    SourceSystem=system1)
+modelComponent1 = system2.GetComponent(Name="Model")
+modelComponent1.Refresh()
+model1 = system2.GetContainer(ComponentName="Model")
+model1.Edit()
+matl2 = engineeringData1.ImportMaterial(
+    Name="Structural Steel",
+    Source="General_Materials.xml")
+EngData.EnableFilter()
+model1.Exit()
+Save(Overwrite=True)
